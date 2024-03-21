@@ -15,12 +15,8 @@ export async function CreateContract() {
     signer,
   )
 
-  // const balance = await contractReader.getEtherBalance()
-  // const bal = ethers.utils.formatUnits(balance.toString(), 18)
-
   // ? GET BALANCE OF ETH
-  // const address = await signer.getAddress()
-  // const balance = await contractReader.getBalance('MATIC', address)
+  // const balance = await contractReader.getEtherBalance()
   // const bal = ethers.utils.formatUnits(balance.toString(), 18)
   // console.log({ address, bal })
 
