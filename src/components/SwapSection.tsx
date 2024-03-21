@@ -5,7 +5,7 @@ import toast, { Toaster } from 'react-hot-toast'
 import { useAccount } from 'wagmi'
 
 import TransactionStatus from './TransactionStatus'
-import { hasValidAllowance } from '@/utils/allowance'
+import { hasValidAllowance, increaseAllowance } from '@/utils/allowance'
 import { swapEthToToken, swapTokenToEth, swapTokenToToken } from '@/utils/swap'
 import { CogIcon } from '@heroicons/react/outline'
 import { ArrowDownIcon } from '@heroicons/react/solid'
@@ -78,11 +78,11 @@ export default function SwapSection({
     if (!(srcToken === 'Ethereum' && destToken !== 'Ethereum')) {
       console.log('ALLOWANCE CHECK:')
       const result = await hasValidAllowance(address, srcToken, srcValue)
-      // if (!result) {
-      //   await increaseAllowance(srcToken, inputValue)
-      //   return toast.error('Increase Allowance', { duration: 6000 })
-      // }
       console.log({ result })
+      if (!result) {
+        await increaseAllowance(srcToken, srcValue)
+        return toast.error('Increase Allowance', { duration: 6000 })
+      }
     }
 
     // const receipt =
