@@ -18,7 +18,7 @@ export default function TokenBalance({ tokenName, walletAddress }) {
     try {
       const contract = await CreateContract()
       const address = await contract.getTokenAddress(tokenName)
-      const balanceBigNumber = await contract.getBalance(tokenName, address)
+      const balanceBigNumber = await contract.getBalance(tokenName, walletAddress)
       const balance = ethers.utils
         .formatUnits(balanceBigNumber.toString(), 18)
         .toString()

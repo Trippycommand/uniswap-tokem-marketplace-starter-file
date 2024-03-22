@@ -95,7 +95,7 @@ export default function SwapSection({
 
     console.log({ receipt })
 
-    if (receipt && !receipt.hasOwnProperty('TransactionHash'))
+    if (receipt && !receipt.hasOwnProperty('transactionHash'))
       toast.error("Txn Error: " + receipt, { duration: 6000 })
     else toast.success('Transaction Successful!', { duration: 6000 })
 

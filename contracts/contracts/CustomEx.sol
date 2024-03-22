@@ -11,20 +11,21 @@ contract CustomToken is ERC20 {
 }
 
 contract CustomDex {
+    //custom tokens to be initialized
     string[] public tokens = [
-        'Tether USD',
+        'Ethereum',
+        'Tether USDt',
+        'USDC',
+        'Shiba Inu',
         'BNB',
-        'USD Coin',
-        'stETH',
         'TRON',
-        'Matic Token',
-        'SHIBA INU',
-        'Uniswap'
+        'Uniswap',
+        'Polygon'
     ];
+
     mapping(string => ERC20) public tokenInstanceMap;
 
-    uint256 private constant ethValue = 1 ether; // Define the value of 1 ether in wei
-    event debugPrinter(uint256 value);
+    uint256 ethValue = 100000000000000;
 
     struct History {
         uint256 historyId;
@@ -36,6 +37,7 @@ contract CustomDex {
     }
 
     uint256 public _historyIndex;
+
     mapping(uint256 => History) private historys;
 
     constructor() {
@@ -70,7 +72,7 @@ contract CustomDex {
         return address(tokenInstanceMap[tokenName]);
     }
 
-    function getEtherBalance() public view returns (uint256) {
+    function getEthBalance() public view returns (uint256) {
         return address(this).balance;
     }
 
@@ -96,20 +98,11 @@ contract CustomDex {
         string memory tokenName
     ) public payable returns (uint256) {
         uint256 inputValue = msg.value;
-        uint256 outputValue = (inputValue / ethValue) * 10 ** 18;
-
-        emit debugPrinter(inputValue);
-        emit debugPrinter(10101);
-        emit debugPrinter(outputValue);
-        emit debugPrinter(10101);
-        emit debugPrinter(ethValue);
-
-        require(outputValue > 0, 'Insufficient ETH provided');
-
-        ERC20 token = tokenInstanceMap[tokenName];
-        require(token.transfer(msg.sender, outputValue), 'Transfer failed');
+        uint256 outputValue = (inputValue / ethValue) * 10 ** 18; //covert to 18 decimal place
+        require(tokenInstanceMap[tokenName].transfer(msg.sender, outputValue));
 
         string memory etherToken = 'Ether';
+
         _transactionHistory(tokenName, etherToken, inputValue, outputValue);
         return outputValue;
     }
@@ -118,19 +111,21 @@ contract CustomDex {
         string memory tokenName,
         uint256 _amount
     ) public returns (uint256) {
-        ERC20 token = tokenInstanceMap[tokenName];
-        uint256 exactAmount = _amount / 10 ** token.decimals();
+        uint256 exactAmount = _amount / 10 ** 18;
         uint256 ethToBeTransferred = exactAmount * ethValue;
         require(
             address(this).balance >= ethToBeTransferred,
-            'Dex is running low on balance'
-        );
-        payable(msg.sender).transfer(ethToBeTransferred);
-        require(
-            token.transferFrom(msg.sender, address(this), _amount),
-            'Transfer failed'
+            'Dex is running low on balance.'
         );
 
+        payable(msg.sender).transfer(ethToBeTransferred);
+        require(
+            tokenInstanceMap[tokenName].transferFrom(
+                msg.sender,
+                address(this),
+                _amount
+            )
+        );
         string memory etherToken = 'Ether';
         _transactionHistory(
             tokenName,
@@ -146,23 +141,30 @@ contract CustomDex {
         string memory destTokenName,
         uint256 _amount
     ) public {
-        ERC20 srcToken = tokenInstanceMap[srcTokenName];
-        ERC20 destToken = tokenInstanceMap[destTokenName];
         require(
-            srcToken.transferFrom(msg.sender, address(this), _amount),
-            'Transfer failed'
+            tokenInstanceMap[srcTokenName].transferFrom(
+                msg.sender,
+                address(this),
+                _amount
+            )
         );
-        require(destToken.transfer(msg.sender, _amount), 'Transfer failed');
+        require(tokenInstanceMap[destTokenName].transfer(msg.sender, _amount));
+
         _transactionHistory(srcTokenName, destTokenName, _amount, _amount);
     }
 
     function getAllHistory() public view returns (History[] memory) {
         uint256 itemCount = _historyIndex;
+        uint256 currentIndex = 0;
+
         History[] memory items = new History[](itemCount);
         for (uint256 i = 0; i < itemCount; i++) {
-            uint256 currentId = i + 1;
-            items[i] = historys[currentId];
+            uint256 currrenId = i + 1;
+            History storage currentItem = historys[currrenId];
+            items[currentIndex] = currentItem;
+            currentIndex += 1;
         }
+
         return items;
     }
 }

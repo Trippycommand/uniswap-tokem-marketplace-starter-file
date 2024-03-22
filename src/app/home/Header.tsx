@@ -78,7 +78,7 @@ export default function Header() {
         </div>
 
         <div className="hidden flex-shrink-0 items-center lg:flex">
-          <TokenBalance tokenName={'USD Coin'} walletAddress={address} />
+          <TokenBalance tokenName={'USDC'} walletAddress={address} />
           <TokenBalance tokenName={'BNB'} walletAddress={address} />
           <ConnectButton />
         </div>

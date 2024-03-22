@@ -8,10 +8,7 @@ export async function swapEthToToken(tokenName: string, amount: number) {
       gasLimit: 5000000,
     }
     const contract = await CreateContract()
-    contract.on("debugPrinter", (v) => console.log({ v }))
-    console.log({
-      tx, tokenName
-    })
+    console.log({ tx, tokenName })
     const data = await contract.swapEthToToken(tokenName, tx)
     const receipt = await data.wait()
     return receipt
