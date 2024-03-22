@@ -24,6 +24,7 @@ contract CustomDex {
     mapping(string => ERC20) public tokenInstanceMap;
 
     uint256 private constant ethValue = 1 ether; // Define the value of 1 ether in wei
+    event debugPrinter(uint256 value);
 
     struct History {
         uint256 historyId;
@@ -96,6 +97,13 @@ contract CustomDex {
     ) public payable returns (uint256) {
         uint256 inputValue = msg.value;
         uint256 outputValue = (inputValue / ethValue) * 10 ** 18;
+
+        emit debugPrinter(inputValue);
+        emit debugPrinter(10101);
+        emit debugPrinter(outputValue);
+        emit debugPrinter(10101);
+        emit debugPrinter(ethValue);
+
         require(outputValue > 0, 'Insufficient ETH provided');
 
         ERC20 token = tokenInstanceMap[tokenName];

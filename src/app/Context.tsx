@@ -3,6 +3,7 @@
 import merge from 'lodash/merge'
 import { WagmiConfig, chain, configureChains, createClient } from 'wagmi'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
+import { infuraProvider } from 'wagmi/providers/infura'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 
 import {
@@ -19,10 +20,14 @@ const theme = merge(midnightTheme(), {
 const { chains, provider } = configureChains(
   [chain.sepolia],
   [
-    alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY || '' }),
+    infuraProvider({
+      apiKey: "443972dc6bec43d6942b131a89244806"
+    }),
+    // alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY || '' }),
     jsonRpcProvider({
       rpc: () => ({
-        http: `https://eth-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY || ''}`,
+        http: 'https://sepolia.infura.io/v3/443972dc6bec43d6942b131a89244806'
+        // http: `https://eth-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY || ''}`,
       }),
     }),
   ],

@@ -75,28 +75,29 @@ export default function SwapSection({
     const srcToken = TokenRefs[1].name.current?.value || ''
     const srcValue = parseFloat(TokenRefs[1].input.current?.value || '')
 
-    if (!(srcToken === 'Ethereum' && destToken !== 'Ethereum')) {
+    if (srcToken !== 'Ethereum') {
       console.log('ALLOWANCE CHECK:')
       const result = await hasValidAllowance(address, srcToken, srcValue)
       console.log({ result })
       if (!result) {
         await increaseAllowance(srcToken, srcValue)
+        setTxnPending(false)
         return toast.error('Increase Allowance', { duration: 6000 })
       }
     }
 
-    // const receipt =
-    //   srcToken === 'Ethereum' && destToken !== 'Ethereum'
-    //     ? await swapEthToToken(destToken, srcValue)
-    //     : srcToken !== 'Ethereum' && destToken === 'Ethereum'
-    //       ? await swapTokenToEth(srcToken, srcValue)
-    //       : await swapTokenToToken(srcToken, destToken, srcValue)
+    const receipt =
+      srcToken === 'Ethereum' && destToken !== 'Ethereum'
+        ? await swapEthToToken(destToken, srcValue)
+        : srcToken !== 'Ethereum' && destToken === 'Ethereum'
+          ? await swapTokenToEth(srcToken, srcValue)
+          : await swapTokenToToken(srcToken, destToken, srcValue)
 
-    // console.log({ receipt })
+    console.log({ receipt })
 
-    // if (receipt && !receipt.hasOwnProperty('TransactionHash'))
-    //   toast.error(receipt, { duration: 6000 })
-    // else toast.success('Transaction Successful!', { duration: 6000 })
+    if (receipt && !receipt.hasOwnProperty('TransactionHash'))
+      toast.error("Txn Error: " + receipt, { duration: 6000 })
+    else toast.success('Transaction Successful!', { duration: 6000 })
 
     setTxnPending(false)
   }
@@ -181,7 +182,7 @@ export default function SwapSection({
         {destTokenComp}
       </div> */}
 
-      {/* {txPending && <TransactionStatus />} */}
+      {txPending && <TransactionStatus />}
 
       <Toaster />
     </div>

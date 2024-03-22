@@ -79,7 +79,7 @@ export default function Header() {
 
         <div className="hidden flex-shrink-0 items-center lg:flex">
           <TokenBalance tokenName={'USD Coin'} walletAddress={address} />
-          <TokenBalance tokenName={'SHIBA INU'} walletAddress={address} />
+          <TokenBalance tokenName={'BNB'} walletAddress={address} />
           <ConnectButton />
         </div>
         <button className="p-4 lg:hidden">{/* <Menu /> */}</button>
