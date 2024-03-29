@@ -16,23 +16,15 @@ export default function Header() {
   }, [address])
 
   return (
-    <header>
-      <div className="container mx-auto flex h-16 justify-between">
-        <div className="flex">
-          <a
-            rel="noopener noreferrer"
-            href="#"
-            aria-label="Back to homepage"
-            className="flex items-center p-2"
-          >
-            {/* <Logo /> */}
-          </a>
+    <header className="bg-gray-800 border-b border-gray-800">
+      <div className="container mx-auto flex h-16 justify-between items-center">
+        <div className="flex items-center">
           <ul className="hidden items-stretch space-x-3 lg:flex">
             <li className="flex">
               <a
-                rel="nooopener noreferrer"
+                rel="noopener noreferrer"
                 href="/tokens"
-                className="-mb-1 flex items-center border-[#7765F3] px-4 text-[#7765F3]  dark:border-transparent"
+                className="flex items-center px-4 text-white hover:text-gray-200"
               >
                 Swap
               </a>
@@ -40,36 +32,36 @@ export default function Header() {
 
             <li className="flex">
               <a
-                rel="nooopener noreferrer"
+                rel="noopener noreferrer"
                 href="/tokens"
-                className="-mb-1 flex items-center px-4 dark:border-transparent  "
+                className="flex items-center px-4 text-white hover:text-gray-200"
               >
                 Token
               </a>
             </li>
             <li className="flex">
               <a
-                rel="nooopener noreferrer"
+                rel="noopener noreferrer"
                 href="#"
-                className="-mb-1 flex items-center px-4 dark:border-transparent  "
+                className="flex items-center px-4 text-white hover:text-gray-200"
               >
                 Transaction
               </a>
             </li>
             <li className="flex">
               <a
-                rel="nooopener noreferrer"
+                rel="noopener noreferrer"
                 href="#"
-                className="-mb-1 flex items-center px-4 dark:border-transparent  "
+                className="flex items-center px-4 text-white hover:text-gray-200"
               >
                 Trends
               </a>
             </li>
             <li className="flex">
               <a
-                rel="nooopener noreferrer"
+                rel="noopener noreferrer"
                 href="#"
-                className="-mb-1 flex items-center px-4 dark:border-transparent  "
+                className="flex items-center px-4 text-white hover:text-gray-200"
               >
                 About Us
               </a>

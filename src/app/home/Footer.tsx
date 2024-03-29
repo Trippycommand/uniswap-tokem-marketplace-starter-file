@@ -14,7 +14,7 @@ export default function Footer() {
               {/* <Logo /> */}
             </div>
             <span className="self-center text-2xl font-semibold text-gray-50">
-              Crypti swam
+              Crypto Scout
             </span>
           </a>
         </div>
@@ -90,7 +90,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t-[3px] border-[#7765F3] py-6 text-center text-sm text-gray-400">
-        © 2023 @theblockchaincoders Co. All rights reserved.
+        © 2024 @cryptoscout Co. All rights reserved.
       </div>
     </footer>
   )
