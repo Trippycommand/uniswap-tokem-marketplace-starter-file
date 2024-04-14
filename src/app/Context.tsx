@@ -2,9 +2,10 @@
 
 import merge from 'lodash/merge'
 import { WagmiConfig, chain, configureChains, createClient } from 'wagmi'
-import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { infuraProvider } from 'wagmi/providers/infura'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
+
+import { SessionProvider } from 'next-auth/react'
 
 import {
   RainbowKitProvider,
@@ -45,7 +46,9 @@ export default function StyleContext({
   return (
     <WagmiConfig client={wagmiClient}>
       <RainbowKitProvider chains={chains} theme={theme}>
-        {children}
+        <SessionProvider>
+          {children}
+        </SessionProvider>
       </RainbowKitProvider>
     </WagmiConfig>
   )

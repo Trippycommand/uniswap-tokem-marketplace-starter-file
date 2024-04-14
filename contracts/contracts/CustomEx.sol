@@ -85,7 +85,6 @@ contract CustomDex {
         _historyIndex++;
         uint256 _historyId = _historyIndex;
         History storage history = historys[_historyId];
-
         history.historyId = _historyId;
         history.userAddress = msg.sender;
         history.tokenA = tokenName;

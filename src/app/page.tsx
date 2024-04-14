@@ -1,5 +1,4 @@
-import Footer from './home/Footer'
-import Header from './home/Header'
+import Footer from './Footer'
 import SwapSection from '@/components/SwapSection'
 
 export default async function HeroPage() {
@@ -15,8 +14,6 @@ export default async function HeroPage() {
 
   return (
     <div className="bg-[#1A1A1A]">
-      <Header />
-
       <section className="bg-gray-900 text-gray-100">
         <div className="lg-flex-row container mx-auto flex flex-col justify-center p-6 sm:py-12 lg:justify-between lg:py-24">
           <div className="flex flex-col justify-center rounded-sm p-6 text-center lg:max-w-md lg:text-left xl:max-w-lg">
@@ -38,12 +35,12 @@ export default async function HeroPage() {
               >
                 Get Started
               </a>
-              
+
             </div>
           </div>
           <div className="xl:h-112 2xl:h-128 mt-8 flex h-72 items-center justify-center p-6 sm:h-80 lg:mt-0 lg:h-96">
             <SwapSection tokens={tokens} />
-            
+
           </div>
         </div>
       </section>
