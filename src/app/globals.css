@@ -2,173 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
-}
 
 @layer utilities {
+  body {
+    @apply text-neutral-200 bg-gray-950;
+  }
+
   .text-balance {
     text-wrap: balance;
   }
-}
-
-@layer utilities {
 
   input[type="number"]::-webkit-inner-spin-button,
   input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
   }
-}
-
-/* ///// added */
-@import url('https://fonts.googleapis.com/css2?family=Acme&family=Kaushan+Script&family=Merienda:wght@600&family=Parisienne&family=Roboto+Slab&family=Ubuntu&family=Vollkorn&display=swap');
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Roboto', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #041625, #314c67); /* Background gradient */
-}
-
-.navbar {
-  background-color: #00152e; /* Adjusted color to complement the background gradient */
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 1000;
-}
-
-.navbar-container {
-  width: 90%;
-  max-width: 1200px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.navbar-logo {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: white;
-  font-size: 24px;
-}
-
-.navbar-logo img {
-  height: 40px;
-  margin-right: 10px;
-}
-
-.navbar-menu {
-  display: flex;
-  align-items: center;
-}
-
-.navbar-item {
-  margin: 0 10px;
-  font-family: 'Acme', sans-serif;
-  display: flex;
-  align-items: center;
-}
-
-.Title {
-  font-family: 'Kaushan Script', cursive;
-  padding-right: 25px;
-  color: rgb(226, 0, 0);
-}
-
-.navbar-input {
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  outline: none;
-  font-family: 'Acme', sans-serif;
-  height: 40px;
-  background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent white background */
-  color: white; /* Text color */
-  transition: background-color 0.3s ease; /* Smooth transition for background color */
-}
-
-.navbar-input::placeholder {
-  color: rgba(255, 255, 255, 0.7); /* Semi-transparent white placeholder text */
-}
-
-.navbar-input:focus {
-  background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white background on focus */
-}
-
-.navbar-select {
-  height: 40px;
-  font-family: 'Acme', sans-serif;
-  border: none;
-  border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.3); /* Semi-transparent white background */
-  color: white; /* Text color */
-  padding: 0 10px; /* Adjust padding */
-}
-
-/* Style the options within the select dropdown */
-.navbar-select option {
-  font-family: 'Acme', sans-serif;
-  color: white;
-  background-color: #00152e; /* Adjusted color to complement the background gradient */
-  border: none;
-}
-
-/* Adjust the appearance of the select dropdown arrow */
-.navbar-select::after {
-  content: '\25BC'; /* Unicode for down arrow */
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  color: white; /* Arrow color */
-  pointer-events: none; /* Ensure arrow doesn't interfere with select functionality */
-}
-
-.navbar-link {
-  text-decoration: none;
-  color: #b8e5f9; /* Adjusted link color to complement the background gradient */
-  font-size: 18px;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.one {
-  font-size: 32px;
-  color: #9fc3d2; /* Adjusted color to complement the background gradient */
-}
-
-.navbar-link:hover {
-  background-color: #001a3b; /* Darker color on hover to complement the background gradient */
-  color: white;
-}
-
-.filt {
-  font-family: 'Acme', sans-serif;
 }

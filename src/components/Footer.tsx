@@ -2,7 +2,7 @@ export default function Footer() {
   const footMenu = ['Feature', 'Integration', 'Pricing', 'FAQ ']
   const footMenu2 = ['Privacy', 'Terms and condition']
   return (
-    <footer className="divide-y bg-[#1A1A1A] px-4 text-gray-100">
+    <footer className="divide-y border-t border-neutral-800 bg-gray-900 px-4 text-gray-100">
       <div className="container mx-auto flex flex-col justify-between space-y-8 py-10 lg:flex-row lg:space-y-0">
         <div className="lg:w-1/3">
           <a
