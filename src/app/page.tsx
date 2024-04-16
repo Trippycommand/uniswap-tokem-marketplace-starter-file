@@ -65,11 +65,11 @@ export default async function App() {
 function Card(props: { heading: string; description: string; img: string }) {
   return (
     <div className="flex flex-col gap-4 rounded-xl bg-gray-900 px-8 py-5 text-white shadow-lg">
-      <h1 className="font-medium">{props.heading}</h1>
+      <h1 className="font-medium ">{props.heading}</h1>
       <p className="text-balance text-sm text-neutral-300">
         {props.description}
       </p>
-      {/* <img src={props.img} className="mt-6 block size-16" /> */}
+      <img src={props.img} className="mt-6 block size-16" />
     </div>
   )
 }
