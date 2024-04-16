@@ -1,6 +1,6 @@
 export default function LoadingPage() {
   return (
-    <div className="mt-[40vh]">
+    <div className="my-[50vh]">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"

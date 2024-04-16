@@ -5,8 +5,6 @@ import { WagmiConfig, chain, configureChains, createClient } from 'wagmi'
 import { infuraProvider } from 'wagmi/providers/infura'
 import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 
-import { SessionProvider } from 'next-auth/react'
-
 import {
   RainbowKitProvider,
   getDefaultWallets,
@@ -22,20 +20,18 @@ const { chains, provider } = configureChains(
   [chain.sepolia],
   [
     infuraProvider({
-      apiKey: "443972dc6bec43d6942b131a89244806"
+      apiKey: '443972dc6bec43d6942b131a89244806',
     }),
     // alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY || '' }),
     jsonRpcProvider({
       rpc: () => ({
-        http: 'https://sepolia.infura.io/v3/443972dc6bec43d6942b131a89244806'
+        http: 'https://sepolia.infura.io/v3/443972dc6bec43d6942b131a89244806',
         // http: `https://eth-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY || ''}`,
       }),
     }),
   ],
 )
-
 const { connectors } = getDefaultWallets({ appName: 'Custom Dex', chains })
-
 const wagmiClient = createClient({ autoConnect: true, connectors, provider })
 
 export default function StyleContext({
@@ -44,12 +40,12 @@ export default function StyleContext({
   children: React.ReactNode
 }) {
   return (
-    <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider chains={chains} theme={theme}>
-        <SessionProvider>
+    <>
+      <WagmiConfig client={wagmiClient}>
+        <RainbowKitProvider chains={chains} theme={theme}>
           {children}
-        </SessionProvider>
-      </RainbowKitProvider>
-    </WagmiConfig>
+        </RainbowKitProvider>
+      </WagmiConfig>
+    </>
   )
 }

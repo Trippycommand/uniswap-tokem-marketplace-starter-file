@@ -1,64 +1,44 @@
-'use client'
-
-import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
-import toast, { Toaster } from 'react-hot-toast'
-import { useAccount } from 'wagmi'
+import { redirect } from 'next/navigation'
 
-import TokenBalance from '@/components/TokenBalance'
-import { ConnectButton } from '@rainbow-me/rainbowkit'
+import NavbarWallet from './NavbarWallet'
+import { auth, signOut } from '@/auth'
 
-export default function Navbar() {
-  const { address } = useAccount()
-  const { data: session, status } = useSession()
-  const router = useRouter()
-
-  useEffect(() => {
-    if (address) return
-    toast.error('Connect wallet.', { duration: 2000 })
-  }, [address])
-
+export default async function Navbar() {
+  const session = await auth()
   return (
     <header className="z-50 border-b border-gray-800 bg-gray-900">
       {session?.user ? (
         <div className="container mx-auto flex h-16 items-center justify-between">
-          <div className="hidden space-x-3 lg:flex">
+          <div className="flex space-x-3">
             <NavbarLink href="/swap">Swap</NavbarLink>
-            <NavbarLink href="/tokens">Tokens</NavbarLink>
             <NavbarLink href="/transactions">Transactions</NavbarLink>
             <NavbarLink href="/trends">Trends</NavbarLink>
             <NavbarLink href="/about">About</NavbarLink>
-
-            <div className="hidden flex-shrink-0 items-center lg:flex">
-              <TokenBalance tokenName={'USDC'} walletAddress={address} />
-              <TokenBalance tokenName={'BNB'} walletAddress={address} />
-              <ConnectButton />
-            </div>
-            <div className="navbar-item">
-              <div
-                className="navbar-link"
-                onClick={async () => {
-                  await signOut({ redirect: false })
-                  router.push('/')
-                }}
-              >
-                Logout
-              </div>
-            </div>
+          </div>
+          <div className="flex space-x-6">
+            <NavbarWallet />
+            <button
+              onClick={async () => {
+                'use server'
+                const status = await signOut()
+                console.log({ status })
+                redirect('/login')
+              }}
+            >
+              Logout
+            </button>
           </div>
         </div>
       ) : (
         <div className="container mx-auto flex h-16 items-center justify-between">
-          <div className="hidden space-x-3 lg:flex">
+          <div className="flex space-x-3">
             <NavbarLink href="/about">About</NavbarLink>
             <NavbarLink href="/login">Login</NavbarLink>
             <NavbarLink href="/signup">Signup</NavbarLink>
           </div>
         </div>
       )}
-      <Toaster />
     </header>
   )
 }

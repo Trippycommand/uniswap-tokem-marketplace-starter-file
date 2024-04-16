@@ -1,43 +1,30 @@
-'use client'
-
-import { useSession } from 'next-auth/react'
-import { signIn } from 'next-auth/react'
+import { Metadata } from 'next'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { useRef } from 'react'
+import { redirect } from 'next/navigation'
 
-import './login.css'
+import { auth, signIn } from '@/auth'
 import Input from '@/components/Input'
-import { Button } from '@nextui-org/react'
 
-export default function Login() {
-  const router = useRouter()
-  const { data: session, status } = useSession()
-  if (status !== 'loading' && session) router.push('/home')
+export const metadata: Metadata = {
+  title: 'Login',
+}
 
-  const FormRef = useRef(null)
-  const handleSubmit = async (e: any) => {
-    e.preventDefault()
-    const data = {
-      // @ts-ignore
-      username: document.getElementById('username')?.value,
-      // @ts-ignore
-      password: document.getElementById('password')?.value,
-    }
-    const error = await signIn('credentials', { ...data, redirect: false })
-    // @ts-expect-error
-    document.getElementById('form-errors').innerText = error.error
-  }
+export default async function Login() {
+  const session = await auth()
+  if (session && session.user) redirect('/')
 
   return (
-    <div className="pb-48 pt-24">
+    <div className="pb-56 pt-28">
       {/* <video src="login.mp4" autoPlay loop muted /> */}
       <h1 className="mb-16 text-center text-3xl font-bold uppercase">
-        Login for CryptoScouts
+        Login for CryptoScout
       </h1>
       <form
-        ref={FormRef}
-        onSubmit={handleSubmit}
+        action={async (formData: any) => {
+          'use server'
+          await signIn('credentials', formData)
+          redirect('/')
+        }}
         className="mx-auto flex max-w-[400px] flex-col gap-8 rounded-2xl border border-gray-700 bg-gray-900 px-12 py-8 shadow-md"
       >
         <Input
@@ -55,11 +42,9 @@ export default function Login() {
           required
         />
 
-        <div className="text-center text-red-500" id="form-errors"></div>
-
-        <Button color="secondary" type="submit">
+        <button className="block w-full rounded-md bg-purple-700 py-2 font-medium text-white">
           Login
-        </Button>
+        </button>
 
         <p className="">
           Don't have an account?{' '}

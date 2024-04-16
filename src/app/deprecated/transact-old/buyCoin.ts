@@ -4,7 +4,7 @@ import { getServerSession } from 'next-auth'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 
-import { getDoc, updateDoc } from '../../api/mongodb'
+import { getDoc, updateDoc } from '../../../mongodb'
 
 export async function buyCoin(formData: FormData) {
   const coin = formData.get('coin')

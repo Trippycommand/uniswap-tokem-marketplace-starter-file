@@ -1,6 +1,6 @@
 'use server'
 
-import { createDoc } from '@/app/api/mongodb'
+import { createDoc } from '@/mongodb'
 
 export async function CreateUser(state: any, data: any) {
   const docData: any = {}

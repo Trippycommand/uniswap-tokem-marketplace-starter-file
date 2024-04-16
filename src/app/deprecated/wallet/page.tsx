@@ -1,8 +1,8 @@
 import { getServerSession } from 'next-auth'
 import { redirect } from 'next/navigation'
 
+import { getDoc } from '../../../mongodb'
 import api from '../../api/cryptoData'
-import { getDoc } from '../../api/mongodb'
 import Navbar2 from '../Navbar2'
 
 // TODO - nocache

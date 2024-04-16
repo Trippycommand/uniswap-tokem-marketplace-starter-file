@@ -45,7 +45,6 @@ export default function CryptoData(props: { data: any }) {
     <div>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {sortData(filteredData.slice(0, 20)).map((coin, index) => {
-          console.log({ coin })
           const circulating_supply = parseFloat(coin.circulating_supply)
           const total_supply = parseFloat(coin.total_supply)
           const percent = ((circulating_supply / total_supply) * 100).toFixed(2)
