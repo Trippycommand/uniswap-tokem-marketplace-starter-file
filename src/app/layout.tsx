@@ -24,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Context>
-        <body className={inter.className}>
+        <body className={inter.className + ' cursor-default'}>
           <Navbar />
           {children}
           <Footer />

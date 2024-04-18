@@ -7,12 +7,12 @@ import { auth, signOut } from '@/auth'
 export default async function Navbar() {
   const session = await auth()
   return (
-    <header className="z-50 border-b border-gray-800 bg-gray-900">
+    <header className="sticky top-0 z-50 border-b border-gray-800 bg-gray-900">
       {session?.user ? (
         <div className="container mx-auto flex h-16 items-center justify-between">
           <div className="flex space-x-3">
             <NavbarLink href="/swap">Swap</NavbarLink>
-            <NavbarLink href="/transactions">Transactions</NavbarLink>
+            <NavbarLink href="/send">Send</NavbarLink>
             <NavbarLink href="/trends">Trends</NavbarLink>
             <NavbarLink href="/about">About</NavbarLink>
           </div>

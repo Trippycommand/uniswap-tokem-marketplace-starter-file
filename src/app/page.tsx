@@ -1,12 +1,11 @@
 import CryptoData from './CryptoData'
 
+const COINGECKO_API = 'https://api.coingecko.com/api/v3'
+
 export default async function App() {
-  const cryptoData = await fetch(
-    'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=e8f90e53-bf7d-4d8c-873f-c0ef15da0aac&limit=100&convert=INR',
-  ).then(async (res) => {
-    const data = await res.json()
-    return data.data
-  })
+  const coins = await fetch(
+    `${COINGECKO_API}/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=100&page=1&sparkline=false`,
+  ).then(async (res) => await res.json())
 
   // TODO - TEXT ANIMATION
 
@@ -57,7 +56,7 @@ export default async function App() {
         CRYPTOCURRENCY
       </h1>
 
-      <CryptoData data={cryptoData} />
+      <CryptoData data={coins} />
     </div>
   )
 }
@@ -69,7 +68,7 @@ function Card(props: { heading: string; description: string; img: string }) {
       <p className="text-balance text-sm text-neutral-300">
         {props.description}
       </p>
-      <img src={props.img} className="mt-6 block size-16" />
+      {/* <img src={props.img} className="mt-6 block size-16" /> */}
     </div>
   )
 }
