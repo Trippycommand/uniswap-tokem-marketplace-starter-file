@@ -9,12 +9,13 @@ export default async function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-gray-800 bg-gray-900">
       {session?.user ? (
-        <div className="container mx-auto flex h-16 items-center justify-between">
+        <div className="container mx-auto flex items-center justify-between p-4">
           <div className="flex space-x-3">
-            <NavbarLink href="/swap">Swap</NavbarLink>
-            <NavbarLink href="/send">Send</NavbarLink>
-            <NavbarLink href="/trends">Trends</NavbarLink>
+            <NavbarLink href="/">Home</NavbarLink>
             <NavbarLink href="/about">About</NavbarLink>
+            <NavbarLink href="/send">Send</NavbarLink>
+            <NavbarLink href="/swap">Swap</NavbarLink>
+            <NavbarLink href="/trends">Trends</NavbarLink>
           </div>
           <div className="flex space-x-6">
             <NavbarWallet />
@@ -33,6 +34,7 @@ export default async function Navbar() {
       ) : (
         <div className="container mx-auto flex h-16 items-center justify-between">
           <div className="flex space-x-3">
+            <NavbarLink href="/">Home</NavbarLink>
             <NavbarLink href="/about">About</NavbarLink>
             <NavbarLink href="/login">Login</NavbarLink>
             <NavbarLink href="/signup">Signup</NavbarLink>

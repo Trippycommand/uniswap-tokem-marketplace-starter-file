@@ -2,13 +2,12 @@
 
 import { ethers } from 'ethers'
 import { useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 
 export default function SendPage() {
   const [defaultAccount, setDefaultAccount] = useState<any>(null)
   const [userBalance, setUserBalance] = useState<any>(null)
   const [amount, setAmount] = useState('') // State to store the amount to be transferred
-  const [transactionComplete, setTransactionComplete] = useState(false) // State to manage transaction complete pop-up
-  const [transactionRejected, setTransactionRejected] = useState(false) // State to manage transaction rejected pop-up
   const connectWallet = () => {
     if (!window.ethereum) return
     window.ethereum
@@ -58,10 +57,10 @@ export default function SendPage() {
       })
 
       console.log('Transaction sent:', response)
-      setTransactionComplete(true)
+      toast.success('Transaction sent successfully.')
     } catch (error) {
       console.error('Error sending transaction:', error)
-      setTransactionRejected(true)
+      toast.error('Error sending transaction.')
     }
   }
 
@@ -97,23 +96,7 @@ export default function SendPage() {
         <p className="">{userBalance}</p>
       </div>
 
-      {transactionComplete && (
-        <div className="">
-          <div className="">
-            <h2>Transaction Complete!</h2>
-            <button onClick={() => setTransactionComplete(false)}>Close</button>
-          </div>
-        </div>
-      )}
-
-      {transactionRejected && (
-        <div className="">
-          <div className="">
-            <h2>Transaction Rejected!</h2>
-            <button onClick={() => setTransactionRejected(false)}>Close</button>
-          </div>
-        </div>
-      )}
+      <Toaster />
     </div>
   )
 }
