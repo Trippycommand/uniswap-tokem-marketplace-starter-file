@@ -14,9 +14,15 @@ export default async function Login() {
   if (session && session.user) redirect('/')
 
   return (
-    <div className="pb-56 pt-28">
-      {/* <video src="login.mp4" autoPlay loop muted /> */}
-      <h1 className="mb-16 text-center text-3xl font-bold uppercase">
+    <div className="relative pb-56 pt-28">
+      {/* <video
+        src="login.mp4"
+        className="absolute left-0 top-0 z-10 h-full w-full"
+        autoPlay
+        loop
+        muted
+      /> */}
+      <h1 className="relative z-20 mb-16 text-center text-3xl font-bold uppercase">
         Login for CryptoScout
       </h1>
       <form
@@ -25,7 +31,7 @@ export default async function Login() {
           await signIn('credentials', formData)
           redirect('/')
         }}
-        className="mx-auto flex max-w-[400px] flex-col gap-8 rounded-2xl border border-gray-700 bg-gray-900 px-12 py-8 shadow-md"
+        className="relative z-20 mx-auto flex max-w-[400px] flex-col gap-8 rounded-2xl border border-gray-700 bg-gray-900 px-12 py-8 shadow-md"
       >
         <Input
           label="Username"

@@ -91,11 +91,6 @@ export default function SendPage() {
         </button>
       </form>
 
-      <div className="">
-        <h3 className="">Balance:</h3>
-        <p className="">{userBalance}</p>
-      </div>
-
       <Toaster />
     </div>
   )

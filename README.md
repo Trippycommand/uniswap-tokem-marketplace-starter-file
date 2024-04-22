@@ -5,7 +5,7 @@
 
 ## Tasks:
 
-- User's Transactions History
-- "Connect Wallet" Box Placement
-- Logout
+- Toast Errors
+- Next.js Errors
+
 - Swap in Realtime Data

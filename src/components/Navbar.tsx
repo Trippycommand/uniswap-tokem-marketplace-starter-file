@@ -9,26 +9,26 @@ export default async function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-gray-800 bg-gray-900">
       {session?.user ? (
-        <div className="container mx-auto flex items-center justify-between p-4">
+        <div className="container mx-auto flex items-center justify-between px-10 py-4">
           <div className="flex space-x-3">
             <NavbarLink href="/">Home</NavbarLink>
             <NavbarLink href="/about">About</NavbarLink>
             <NavbarLink href="/send">Send</NavbarLink>
+            <NavbarLink href="/txns">Transactions</NavbarLink>
             <NavbarLink href="/swap">Swap</NavbarLink>
             <NavbarLink href="/trends">Trends</NavbarLink>
           </div>
-          <div className="flex space-x-6">
+          <div className="flex flex-grow flex-row items-center justify-end gap-8">
             <NavbarWallet />
-            <button
-              onClick={async () => {
+            <form
+              action={async () => {
                 'use server'
-                const status = await signOut()
-                console.log({ status })
+                await signOut()
                 redirect('/login')
               }}
             >
-              Logout
-            </button>
+              <button>Logout</button>
+            </form>
           </div>
         </div>
       ) : (

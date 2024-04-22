@@ -19,11 +19,6 @@ export default async function SymbolPage(props: { params: { id: string } }) {
   const prices = await fetch(
     `${COINGECKO_API}/coins/${coinId}/market_chart?vs_currency=inr&days=7`,
   ).then(async (res) => {
-    // console.log({
-    //   headers: res.headers.forEach((header) => {
-    //     console.log(header)
-    //   }),
-    // })
     const data = await res.json()
     return data.prices
   })
@@ -36,7 +31,7 @@ export default async function SymbolPage(props: { params: { id: string } }) {
           Back
         </Link>
       </div>
-      <div className="grid w-full grid-cols-[40%_60%] gap-6 pt-16">
+      <div className="grid w-full grid-cols-[40%_60%] gap-16 pt-16">
         <div>
           <div className="text-xl">
             <img src={coin.image.small} alt="" className="mr-4 inline-block" />
@@ -55,7 +50,7 @@ export default async function SymbolPage(props: { params: { id: string } }) {
           </div>
 
           <div
-            className="prose-invert text-sm text-neutral-200"
+            className="prose-invert text-justify text-sm text-neutral-200"
             dangerouslySetInnerHTML={{ __html: coin.description.en }}
           ></div>
         </div>

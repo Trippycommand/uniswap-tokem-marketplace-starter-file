@@ -1,5 +1,7 @@
+import bcrypt from 'bcrypt'
 import NextAuth from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
+import { object, string } from 'zod'
 
 import { getDoc } from './mongodb'
 
@@ -11,30 +13,34 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         username: {},
         password: {},
       },
-      async authorize(credentials, req) {
+      async authorize(credentials) {
+        const { username, password } =
+          await signInSchema.parseAsync(credentials)
         if (!credentials) throw new Error('No credentials')
+
         const user = (await getDoc({
           collection: 'users',
-          filter: { username: credentials.username },
+          filter: { username },
           options: {},
         })) as any
         if (!user) throw new Error('No user found')
-        if (user.password !== credentials.password)
-          throw new Error('Incorrect Password or UserID')
+
+        const result = await bcrypt.compare(password, user.password)
+        if (!result) throw new Error('Incorrect Password or UserID')
+
         return user
-        // let user = null
-        // // logic to salt and hash password
-        // const pwHash = saltAndHashPassword(credentials.password)
-        // // logic to verify if user exists
-        // user = await getUserFromDb(credentials.email, pwHash)
-        // if (!user) {
-        //   // No user found, so this is their first attempt to login
-        //   // meaning this is also the place you could do registration
-        //   throw new Error('User not found.')
-        // }
-        // // return user object with the their profile data
-        // return user
       },
     }),
   ],
+})
+
+export const signInSchema = object({
+  username: string({ required_error: 'Username is required' }).min(
+    1,
+    'Email is required',
+  ),
+  password: string({ required_error: 'Password is required' }).min(
+    1,
+    'Password is required',
+  ),
 })

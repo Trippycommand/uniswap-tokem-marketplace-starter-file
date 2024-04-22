@@ -1,4 +1,6 @@
 import CryptoData from './CryptoData'
+import LottiePlayer from '@/components/LottiePlayer'
+import HeroLottie from '@/lottie/HeroLottie.json'
 
 const COINGECKO_API = 'https://api.coingecko.com/api/v3'
 
@@ -11,8 +13,8 @@ export default async function App() {
 
   return (
     <div className="mx-auto max-w-[1200px] pb-20">
-      <div className="hero-section">
-        <div className="my-24">
+      <div className="mb-12 mt-24 flex flex-row ">
+        <div>
           <h2 className="bg-gradient-to-br from-blue-600 via-pink-600 via-65% to-rose-600 bg-clip-text py-8 text-6xl font-bold text-transparent transition-transform duration-300 ease-in-out">
             CryptoScout
             <span className="block leading-loose">
@@ -28,6 +30,11 @@ export default async function App() {
             it look proffesional for a website which is in production.
           </p>
         </div>
+
+        <LottiePlayer
+          animationData={HeroLottie}
+          className="h-full w-full py-16"
+        />
       </div>
       <div className="lg:grid-cols-0 grid grid-cols-6 gap-8 sm:grid-cols-1 md:grid-cols-4">
         <Card

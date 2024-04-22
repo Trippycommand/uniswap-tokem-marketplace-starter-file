@@ -23,13 +23,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Context>
-        <body className={inter.className + ' cursor-default'}>
+      <body className={inter.className + ' cursor-default'}>
+        <Context>
           <Navbar />
           {children}
           <Footer />
-        </body>
-      </Context>
+        </Context>
+      </body>
     </html>
   )
 }

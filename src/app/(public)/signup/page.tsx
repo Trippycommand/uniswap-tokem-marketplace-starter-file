@@ -1,8 +1,10 @@
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
-import { auth } from '@/auth'
+import { auth, signIn } from '@/auth'
 import Input from '@/components/Input'
+import { createDoc } from '@/mongodb'
+import { saltAndHashPassword } from '@/utils/saltAndHashPassword'
 
 export const metadata: Metadata = {
   title: 'Signup',
@@ -12,34 +14,33 @@ export default async function Signup() {
   const session = await auth()
   if (session && session.user) redirect('/')
 
-  // const [state, formAction] = useFormState(CreateUser, null)
-  // useEffect(() => {
-  //   if (state === null) return
-  //   const data = {
-  //     // @ts-ignore
-  //     username: document.getElementById('username')?.value,
-  //     // @ts-ignore
-  //     password: document.getElementById('password')?.value,
-  //   }
-  //   signIn('credentials', { ...data, redirect: false })
-  // }, [state])
-
   return (
-    <main className="pb-48 pt-24">
+    <main className="relative pb-48 pt-24">
       {/* <video
         src="signup.mp4"
-        className="absolute left-0 top-0 z-0 h-full w-full object-fill"
+        className="absolute left-0 top-0 z-10 h-full w-full"
         autoPlay
         loop
         muted
       /> */}
-      <h1 className="mb-16 text-center text-3xl font-bold uppercase">
+      <h1 className="relative z-20 mb-16 text-center text-3xl font-bold uppercase">
         Sign Up for CryptoScout
       </h1>
 
       <form
-        // action={formAction}
-        className="mx-auto flex max-w-[400px] flex-col gap-8 rounded-2xl border border-gray-700 bg-gray-900 px-12 py-8 shadow-md"
+        action={async (formData) => {
+          'use server'
+
+          const docData: any = {}
+          formData.forEach((value: any, key: any) => {
+            docData[key] = value
+          })
+          docData['password'] = await saltAndHashPassword(docData['password'])
+
+          await createDoc({ collection: 'users', docData })
+          redirect('/login')
+        }}
+        className="relative z-20 mx-auto flex max-w-[400px] flex-col gap-8 rounded-2xl border border-gray-700 bg-gray-900 px-12 py-8 shadow-md"
       >
         <Input
           label="Username"
