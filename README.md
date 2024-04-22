@@ -5,7 +5,4 @@
 
 ## Tasks:
 
-- Toast Errors
-- Next.js Errors
-
 - Swap in Realtime Data
