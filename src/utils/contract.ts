@@ -1,6 +1,6 @@
 import { BigNumber, ethers } from 'ethers'
 
-import CustomDexABI from '@/contract/CustomDex.json'
+import CryptoScoutDexABI from '@/contract/CryptoScoutDex.json'
 import CustomTokenABI from '@/contract/CustomToken.json'
 
 export async function CreateContract() {
@@ -11,7 +11,7 @@ export async function CreateContract() {
   const signer = provider.getSigner()
   const contractReader = new ethers.Contract(
     process.env.NEXT_PUBLIC_CONTRACT_ID || '',
-    CustomDexABI.abi,
+    CryptoScoutDexABI.abi,
     signer,
   )
 

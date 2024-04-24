@@ -3,7 +3,6 @@
 pragma solidity ^0.8.0;
 
 import './CustomToken.sol';
-import './ExternalApiCaller.sol';
 
 contract CryptoScoutDex {
     // Eth Value:
@@ -34,18 +33,9 @@ contract CryptoScoutDex {
     }
     mapping(uint256 => History) private historys;
 
-    // Events:
-    event debuggingLog(string message);
-    event debuggingAddress(address message);
-
-    // External API Caller:
-    ExternalApiCaller public apiCaller;
-
     // ----------------------------------------------------------
 
-    // Initialize Custom Tokens:
     constructor() {
-        apiCaller = new ExternalApiCaller();
         for (uint256 i = 0; i < tokens.length; i++) {
             CustomToken token = new CustomToken(tokens[i], tokens[i]);
             tokenInstanceMap[tokens[i]] = token;
@@ -100,73 +90,56 @@ contract CryptoScoutDex {
 
     // ----------------------------------------------------------
 
-    function swapEthToToken(string memory tokenName) public payable {
-        uint256 inputValue = msg.value;
-        uint256 outputValue = (inputValue / ethValue) * 10 ** 18; //covert to 18 decimal place
-        require(tokenInstanceMap[tokenName].transfer(msg.sender, outputValue));
-
-        string memory etherToken = 'Ether';
-
-        _transactionHistory(tokenName, etherToken, inputValue, outputValue);
-        // return outputValue;
+    function swapEthToToken(
+        string memory tokenName,
+        uint256 srcAmount,
+        uint256 destAmount
+    ) public {
+        require(tokenInstanceMap[tokenName].transfer(msg.sender, destAmount));
+        _transactionHistory(tokenName, 'Ether', srcAmount, destAmount);
     }
 
-    function swapTokenToEth(string memory tokenName, uint256 _amount) public {
-        uint256 exactAmount = _amount / 10 ** 18;
-        uint256 ethToBeTransferred = exactAmount * ethValue;
+    function swapTokenToEth(
+        string memory tokenName,
+        uint256 _srcAmount,
+        uint256 _destAmount
+    ) public {
+        uint256 srcAmount = _srcAmount / 10 ** 18;
+        uint256 destAmount = _destAmount / 10 ** 18; // !!
+
         require(
-            address(this).balance >= ethToBeTransferred,
+            address(this).balance >= destAmount,
             'Dex is running low on balance.'
         );
 
-        payable(msg.sender).transfer(ethToBeTransferred);
+        payable(msg.sender).transfer(destAmount);
         require(
             tokenInstanceMap[tokenName].transferFrom(
                 msg.sender,
                 address(this),
-                _amount
+                _srcAmount
             )
         );
-        string memory etherToken = 'Ether';
-        _transactionHistory(
-            tokenName,
-            etherToken,
-            exactAmount,
-            ethToBeTransferred
-        );
-        // return ethToBeTransferred;
+        _transactionHistory(tokenName, 'Ether', srcAmount, destAmount);
     }
 
-    function swapTokenToToken() public {
-        // string memory srcTokenName,
-        // string memory destTokenName,
-        // uint256 srcAmount
-        emit debuggingLog('Calling Request');
-        apiCaller.requestTokenInrPrice(
-            'bitcoin',
-            this.swapTokenToToken_callback
+    function swapTokenToToken(
+        string memory srcTokenName,
+        string memory destTokenName,
+        uint256 srcAmount,
+        uint256 destAmount
+    ) public {
+        require(
+            tokenInstanceMap[srcTokenName].transferFrom(
+                msg.sender,
+                address(this),
+                srcAmount
+            )
         );
-
-        // TODO: INSERT COINGECKO TOKEN ID
-
-        // uint256 destAmount = srcAmount;
-        // require(
-        //     tokenInstanceMap[srcTokenName].transferFrom(
-        //         msg.sender,
-        //         address(this),
-        //         srcAmount
-        //     )
-        // );
-        // require(
-        //     tokenInstanceMap[destTokenName].transfer(msg.sender, destAmount)
-        // );
-
-        // _transactionHistory(srcTokenName, destTokenName, srcAmount, destAmount);
-    }
-
-    function swapTokenToToken_callback(string memory tokenValue) external {
-        emit debuggingLog('Hello World');
-        emit debuggingLog(tokenValue);
+        require(
+            tokenInstanceMap[destTokenName].transfer(msg.sender, destAmount)
+        );
+        _transactionHistory(srcTokenName, destTokenName, srcAmount, destAmount);
     }
 
     // ----------------------------------------------------------

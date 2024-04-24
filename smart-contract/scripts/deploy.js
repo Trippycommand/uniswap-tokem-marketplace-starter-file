@@ -1,10 +1,10 @@
 const hre = require('hardhat')
 
 async function main() {
-  const CustomDex = await hre.ethers.getContractFactory('CustomDex')
-  const customDex = await CustomDex.deploy()
-  await customDex.deployed()
-  console.log(`CustomDex: ${customDex.address}`)
+  const CryptoScoutDex = await hre.ethers.getContractFactory('CryptoScoutDex')
+  const cryptoScoutDex = await CryptoScoutDex.deploy()
+  await cryptoScoutDex.deployed()
+  console.log(`CustomDex: ${cryptoScoutDex.address}`)
 }
 
 main().catch((error) => {

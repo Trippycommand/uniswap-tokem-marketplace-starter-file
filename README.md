@@ -5,4 +5,5 @@
 
 ## Tasks:
 
-- Swap in Realtime Data
+- Sepolia ETH related NOT WORKING
+- Increase Allowance Success Modal
