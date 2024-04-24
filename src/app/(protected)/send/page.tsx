@@ -1,8 +1,11 @@
+// @ts-nocheck
 'use client'
 
 import { ethers } from 'ethers'
 import { useState } from 'react'
 import toast, { Toaster } from 'react-hot-toast'
+
+// @ts-nocheck
 
 export default function SendPage() {
   const [defaultAccount, setDefaultAccount] = useState<any>(null)

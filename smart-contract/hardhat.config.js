@@ -21,15 +21,4 @@ module.exports = {
       accounts: [`0x${ARYAN_PRIVATE_KEY}`],
     },
   },
-  // defaultNetwork: "matic",
-  // namedAccounts: {
-  //   deployer: {
-  //     default: 0, // Index of the account in the `accounts` array
-  //   },
-  // },
-  // Define JSON-RPC provider for the Sepolia chain
-  // jsonRpc: {
-  //   url: NEXT_PUBLIC_SEPOLIAETH_RPC,
-  //   chainId: 1, // Specify the chain ID for the Sepolia chain
-  // },
 }

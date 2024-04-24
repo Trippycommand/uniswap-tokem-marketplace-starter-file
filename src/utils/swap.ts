@@ -10,6 +10,7 @@ export async function swapEthToToken(tokenName: string, amount: number) {
     const contract = await CreateContract()
     console.log({ tx, tokenName })
     const data = await contract.swapEthToToken(tokenName, tx)
+    // TODO: Convert this to events
     const receipt = await data.wait()
     return receipt
   } catch (e) {
@@ -21,6 +22,7 @@ export async function swapTokenToEth(tokenName: string, amount: number) {
   try {
     const contract = await CreateContract()
     const data = await contract.swapTokenToEth(tokenName, toWei(amount))
+    // TODO: Convert this to events
     const receipt = await data.wait()
     return receipt
   } catch (e) {
@@ -40,7 +42,7 @@ export async function swapTokenToToken(
       destToken,
       toWei(amount),
     )
-
+    // TODO: Convert this to events
     const receipt = await data.wait()
     return receipt
   } catch (e) {
