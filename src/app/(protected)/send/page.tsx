@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 'use client'
 
 import { ethers } from 'ethers'
@@ -65,33 +67,35 @@ export default function SendPage() {
   }
 
   return (
-    <div>
-      <form
-        className="mx-auto my-72 flex w-[500px] flex-col gap-4 rounded-xl border border-gray-800 bg-gray-900 p-8"
-        onSubmit={sendTransaction}
-      >
-        <h3>Enter Transaction Details</h3>
-        <input
-          type="text"
-          name="to_address"
-          placeholder="Recipient Address"
-          className="w-full rounded-md bg-gray-800 px-4 py-2"
-          required
-        />
-        <input
-          type="text"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          placeholder="Amount (ETH)"
-          className="w-full rounded-md bg-gray-800 px-4 py-2"
-          required
-        />
-        <button className="block w-full rounded-md bg-purple-700 py-2 font-medium text-white">
-          Send
-        </button>
-      </form>
+    <div className="max-w-xl mx-auto my-12">
+  <h2 className=" bg-gradient-to-br from-blue-600 via-pink-600 via-65% to-rose-600 bg-clip-text py-8 text-6xl font-bold text-transparent transition-transform duration-300 ease-in-out">Funds Transaction</h2>
+  <p className="text-gray-300 text-center mb-8">Please fill out the form below to complete your transaction.</p>
+  <form
+    className="mx-auto flex flex-col gap-4 rounded-xl border border-gray-800 bg-gray-900 p-8"
+    onSubmit={sendTransaction}
+  >
+    <h3 className="text-lg font-bold mb-4">Enter Transaction Details</h3>
+    <input
+      type="text"
+      name="to_address"
+      placeholder="Recipient Address"
+      className="w-full rounded-md bg-gray-800 px-4 py-2"
+      required
+    />
+    <input
+      type="text"
+      value={amount}
+      onChange={(e) => setAmount(e.target.value)}
+      placeholder="Amount (ETH)"
+      className="w-full rounded-md bg-gray-800 px-4 py-2"
+      required
+    />
+    <button className="block w-full rounded-md bg-purple-700 py-2 font-medium text-white">
+      Send
+    </button>
+  </form>
+  <Toaster />
+</div>
 
-      <Toaster />
-    </div>
   )
 }

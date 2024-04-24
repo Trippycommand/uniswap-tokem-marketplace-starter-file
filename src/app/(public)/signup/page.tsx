@@ -16,13 +16,13 @@ export default async function Signup() {
 
   return (
     <main className="relative pb-48 pt-24">
-      {/* <video
+      <video
         src="signup.mp4"
         className="absolute left-0 top-0 z-10 h-full w-full"
         autoPlay
         loop
         muted
-      /> */}
+      />
       <h1 className="relative z-20 mb-16 text-center text-3xl font-bold uppercase">
         Sign Up for CryptoScout
       </h1>

@@ -15,13 +15,13 @@ export default async function Login() {
 
   return (
     <div className="relative pb-56 pt-28">
-      {/* <video
+      <video
         src="login.mp4"
         className="absolute left-0 top-0 z-10 h-full w-full"
         autoPlay
         loop
         muted
-      /> */}
+      />
       <h1 className="relative z-20 mb-16 text-center text-3xl font-bold uppercase">
         Login for CryptoScout
       </h1>
