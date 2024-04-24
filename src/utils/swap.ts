@@ -1,15 +1,19 @@
 import { CreateContract } from './contract'
 import { parseErrorMsg, toWei } from './utils'
 
-export async function swapEthToToken(tokenName: string, amount: number) {
+export async function swapEthToToken(
+  destToken: string,
+  srcAmount: number,
+  destAmount: number,
+) {
   try {
-    let tx = {
-      value: toWei(amount),
-      gasLimit: 5000000,
-    }
+    console.log({ destToken, srcAmount, destAmount })
     const contract = await CreateContract()
-    console.log({ tx, tokenName })
-    const data = await contract.swapEthToToken(tokenName, tx)
+    const data = await contract.swapEthToToken(
+      destToken,
+      toWei(srcAmount),
+      toWei(destAmount),
+    )
     const receipt = await data.wait()
     return receipt
   } catch (e) {
@@ -17,10 +21,18 @@ export async function swapEthToToken(tokenName: string, amount: number) {
   }
 }
 
-export async function swapTokenToEth(tokenName: string, amount: number) {
+export async function swapTokenToEth(
+  srcToken: string,
+  srcAmount: number,
+  destAmount: number,
+) {
   try {
     const contract = await CreateContract()
-    const data = await contract.swapTokenToEth(tokenName, toWei(amount))
+    const data = await contract.swapTokenToEth(
+      srcToken,
+      toWei(srcAmount),
+      toWei(destAmount),
+    )
     const receipt = await data.wait()
     return receipt
   } catch (e) {
@@ -31,16 +43,17 @@ export async function swapTokenToEth(tokenName: string, amount: number) {
 export async function swapTokenToToken(
   srcToken: string,
   destToken: string,
-  amount: number,
+  srcAmount: number,
+  destAmount: number,
 ) {
   try {
     const contract = await CreateContract()
     const data = await contract.swapTokenToToken(
       srcToken,
       destToken,
-      toWei(amount),
+      toWei(srcAmount),
+      toWei(destAmount),
     )
-
     const receipt = await data.wait()
     return receipt
   } catch (e) {

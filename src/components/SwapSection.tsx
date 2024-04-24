@@ -74,6 +74,7 @@ export default function SwapSection({
     const destToken = TokenRefs[2].name.current?.value || ''
     const srcToken = TokenRefs[1].name.current?.value || ''
     const srcValue = parseFloat(TokenRefs[1].input.current?.value || '')
+    const destValue = parseFloat(TokenRefs[2].input.current?.value || '')
 
     if (srcToken !== 'Ethereum') {
       console.log('ALLOWANCE CHECK:')
@@ -88,15 +89,15 @@ export default function SwapSection({
 
     const receipt =
       srcToken === 'Ethereum' && destToken !== 'Ethereum'
-        ? await swapEthToToken(destToken, srcValue)
+        ? await swapEthToToken(destToken, srcValue, destValue)
         : srcToken !== 'Ethereum' && destToken === 'Ethereum'
-          ? await swapTokenToEth(srcToken, srcValue)
-          : await swapTokenToToken(srcToken, destToken, srcValue)
+          ? await swapTokenToEth(srcToken, srcValue, destValue)
+          : await swapTokenToToken(srcToken, destToken, srcValue, destValue)
 
     console.log({ receipt })
 
     if (receipt && !receipt.hasOwnProperty('transactionHash'))
-      toast.error("Txn Error: " + receipt, { duration: 6000 })
+      toast.error('Txn Error: ' + receipt, { duration: 6000 })
     else toast.success('Transaction Successful!', { duration: 6000 })
 
     setTxnPending(false)
