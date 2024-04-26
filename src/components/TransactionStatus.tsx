@@ -52,7 +52,7 @@ export default function TransactionStatus() {
                 <Loading>Completing the transaction</Loading>.
               </div>
               <p className="items-center justify-center px-4 py-4 text-sm text-black sm:flex sm:flex-row-reverse sm:px-6">
-                (Transaction would usually take &lt; 12 secs...) .
+                (Transaction would usually take &lt; 1 minute...) .
               </p>
             </div>
           </Transition.Child>

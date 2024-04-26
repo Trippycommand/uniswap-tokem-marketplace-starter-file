@@ -1,8 +1,10 @@
 'use client'
 
+import { Suspense } from 'react'
 import { useAccount } from 'wagmi'
 
 import TokenBalance from './TokenBalance'
+import LoadingPage from '@/app/loading'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 
 export default function NavbarWallet() {
@@ -11,10 +13,10 @@ export default function NavbarWallet() {
   return (
     <>
       {address && (
-        <>
+        <Suspense fallback={<div>...</div>}>
           <TokenBalance tokenName={'USDC'} walletAddress={address} />
           <TokenBalance tokenName={'BNB'} walletAddress={address} />
-        </>
+        </Suspense>
       )}
       <CustomConnectButton />
     </>

@@ -7,13 +7,10 @@ export async function swapEthToToken(
   destAmount: number,
 ) {
   try {
-    console.log({ destToken, srcAmount, destAmount })
     const contract = await CreateContract()
-    const data = await contract.swapEthToToken(
-      destToken,
-      toWei(srcAmount),
-      toWei(destAmount),
-    )
+    const data = await contract.swapEthToToken(destToken, toWei(destAmount), {
+      value: toWei(srcAmount),
+    })
     const receipt = await data.wait()
     return receipt
   } catch (e) {
@@ -27,6 +24,10 @@ export async function swapTokenToEth(
   destAmount: number,
 ) {
   try {
+    console.log({
+      srcAmount: toWei(srcAmount),
+      destAmount: toWei(destAmount),
+    })
     const contract = await CreateContract()
     const data = await contract.swapTokenToEth(
       srcToken,

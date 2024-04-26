@@ -9,6 +9,10 @@ import toast, { Toaster } from 'react-hot-toast'
 
 // @ts-nocheck
 
+// @ts-nocheck
+
+// @ts-nocheck
+
 export default function SendPage() {
   const [defaultAccount, setDefaultAccount] = useState<any>(null)
   const [userBalance, setUserBalance] = useState<any>(null)
@@ -71,6 +75,13 @@ export default function SendPage() {
 
   return (
     <div>
+      <h2 className=" bg-gradient-to-br from-blue-600 via-pink-600 via-65% to-rose-600 bg-clip-text py-8 text-6xl font-bold text-transparent transition-transform duration-300 ease-in-out">
+        Funds Transaction
+      </h2>
+      <p className="mb-8 text-center text-gray-300">
+        Please fill out the form below to complete your transaction.
+      </p>
+
       <form
         className="mx-auto my-72 flex w-[500px] flex-col gap-4 rounded-xl border border-gray-800 bg-gray-900 p-8"
         onSubmit={sendTransaction}

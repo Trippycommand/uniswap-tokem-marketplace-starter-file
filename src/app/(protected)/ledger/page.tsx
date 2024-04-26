@@ -28,8 +28,6 @@ export default function TransactionsPage() {
             <th className="p-3">User</th>
             <th className="p-3">From</th>
             <th className="p-3">To</th>
-            <th className="p-3">Input</th>
-            <th className="p-3">Output</th>
             <th className="p-3">Status</th>
           </tr>
         </thead>
@@ -47,20 +45,15 @@ export default function TransactionsPage() {
                   <p>{history.userAddress}</p>
                 </td>
                 <td className="p-3">
-                  <p>{history.tokenB}</p>
+                  <p>
+                    {history.tokenA} {history.inputValue}
+                  </p>
                 </td>
                 <td className="p-3">
-                  <p>{history.tokenA}</p>
+                  <p>
+                    {history.tokenB} {history.outputValue}
+                  </p>
                 </td>
-                <td className="p-3">
-                  <p>{history.inputValue}</p>
-                </td>
-                <td className="p-3">
-                  <p>{history.outputValue}</p>
-                </td>
-                {/* <td className="p-3">
-                    <p>{history.status}</p>
-                  </td> */}
                 <td className="p-3">
                   <span className="rounded-md bg-[#7765F3] px-3 py-1 font-semibold text-white">
                     <span>Completed</span>

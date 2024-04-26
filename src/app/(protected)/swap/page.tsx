@@ -27,7 +27,7 @@ export default async function HeroPage() {
             trading platform.
           </p>
 
-          <div className=" flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-center sm:space-x-4 sm:space-y-0 lg:justify-start">
+          <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-center sm:space-x-4 sm:space-y-0 lg:justify-start">
             <a
               rel="noopener noreferrer"
               href="#"

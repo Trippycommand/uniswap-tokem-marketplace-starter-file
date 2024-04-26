@@ -50,7 +50,7 @@ export default function SwapSection({
     const outputInrValue = tokens.filter(
       (token) => token.name === outputName,
     )[0].inr
-    const outputQty = (inputQty * inputInrValue) / outputInrValue
+    const outputQty = ((inputQty * inputInrValue) / outputInrValue).toFixed(16)
 
     // @ts-expect-error
     TokenRefs[outputIndex].input.current.value = outputQty
@@ -62,28 +62,34 @@ export default function SwapSection({
   const [txPending, setTxnPending] = useState(false)
 
   async function handleSwap() {
-    if (TokenRefs[1].name.current?.value === TokenRefs[2].name.current?.value)
-      return toast.error(
-        'Kindly select different Source and Destination Token Names',
-        { duration: 6000 },
-      )
-    // ...
-
-    setTxnPending(true)
-
     const destToken = TokenRefs[2].name.current?.value || ''
     const srcToken = TokenRefs[1].name.current?.value || ''
     const srcValue = parseFloat(TokenRefs[1].input.current?.value || '')
     const destValue = parseFloat(TokenRefs[2].input.current?.value || '')
 
+    console.log({ srcValue, destValue })
+
+    if (srcToken === destToken)
+      return toast.error(
+        'Kindly select different Source and Destination Token Names',
+        { duration: 6000 },
+      )
+    else if (srcValue <= 0 || destValue <= 0)
+      return toast.error('Kindly enter valid Token Values', { duration: 6000 })
+
+    setTxnPending(true)
     if (srcToken !== 'Ethereum') {
-      console.log('ALLOWANCE CHECK:')
       const result = await hasValidAllowance(address, srcToken, srcValue)
-      console.log({ result })
       if (!result) {
-        await increaseAllowance(srcToken, srcValue)
+        const result = await increaseAllowance(srcToken, srcValue)
+        if (!result)
+          toast.error('Increase Allowance Failed', { duration: 6000 })
+        else
+          toast.success('Allowance Increased Successfully', {
+            duration: 6000,
+          })
         setTxnPending(false)
-        return toast.error('Increase Allowance', { duration: 6000 })
+        return
       }
     }
 
@@ -98,7 +104,10 @@ export default function SwapSection({
 
     if (receipt && !receipt.hasOwnProperty('transactionHash'))
       toast.error('Txn Error: ' + receipt, { duration: 6000 })
-    else toast.success('Transaction Successful!', { duration: 6000 })
+    else {
+      toast.success('Transaction Successful!', { duration: 6000 })
+      window.location.reload()
+    }
 
     setTxnPending(false)
   }
@@ -130,7 +139,7 @@ export default function SwapSection({
           ))}
         </select>
 
-        <button className="absolute left-[45%] top-14 z-50 rounded-lg bg-neutral-600 p-2">
+        <button className="absolute left-[45%] top-14 z-10 rounded-lg bg-neutral-600 p-2">
           <ArrowDownIcon className="size-6" />
         </button>
       </div>

@@ -92,21 +92,18 @@ contract CryptoScoutDex {
 
     function swapEthToToken(
         string memory tokenName,
-        uint256 srcAmount,
         uint256 destAmount
-    ) public {
+    ) public payable {
+        uint256 srcAmount = msg.value;
         require(tokenInstanceMap[tokenName].transfer(msg.sender, destAmount));
-        _transactionHistory(tokenName, 'Ether', srcAmount, destAmount);
+        _transactionHistory('Ethereum', tokenName, srcAmount, destAmount);
     }
 
     function swapTokenToEth(
         string memory tokenName,
-        uint256 _srcAmount,
-        uint256 _destAmount
+        uint256 srcAmount,
+        uint256 destAmount
     ) public {
-        uint256 srcAmount = _srcAmount / 10 ** 18;
-        uint256 destAmount = _destAmount / 10 ** 18; // !!
-
         require(
             address(this).balance >= destAmount,
             'Dex is running low on balance.'
@@ -117,10 +114,10 @@ contract CryptoScoutDex {
             tokenInstanceMap[tokenName].transferFrom(
                 msg.sender,
                 address(this),
-                _srcAmount
+                srcAmount
             )
         );
-        _transactionHistory(tokenName, 'Ether', srcAmount, destAmount);
+        _transactionHistory(tokenName, 'Ethereum', srcAmount, destAmount);
     }
 
     function swapTokenToToken(
@@ -145,8 +142,8 @@ contract CryptoScoutDex {
     // ----------------------------------------------------------
 
     function _transactionHistory(
-        string memory tokenName,
-        string memory etherToken,
+        string memory tokenA,
+        string memory tokenB,
         uint256 inputValue,
         uint256 outputValue
     ) internal {
@@ -155,8 +152,8 @@ contract CryptoScoutDex {
         History storage history = historys[_historyId];
         history.historyId = _historyId;
         history.userAddress = msg.sender;
-        history.tokenA = tokenName;
-        history.tokenB = etherToken;
+        history.tokenA = tokenA;
+        history.tokenB = tokenB;
         history.inputValue = inputValue;
         history.outputValue = outputValue;
     }
