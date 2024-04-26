@@ -57,35 +57,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="space-y-3">
-            <div className="uppercase text-[#7765F3]">Social media</div>
-            <div className="flex justify-start space-x-3 text-gray-50">
-              <a
-                rel="noopener noreferrer"
-                href="#"
-                title="Facebook"
-                className="flex items-center p-1"
-              >
-                {/* <Facebook /> */}
-              </a>
-              <a
-                rel="noopener noreferrer"
-                href="#"
-                title="Facebook"
-                className="flex items-center p-1"
-              >
-                {/* <Twitter /> */}
-              </a>
-              <a
-                rel="noopener noreferrer"
-                href="#"
-                title="Facebook"
-                className="flex items-center p-1"
-              >
-                {/* <Insta /> */}
-              </a>
-            </div>
-          </div>
+    
         </div>
       </div>
 

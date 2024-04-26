@@ -75,7 +75,7 @@ function Card(props: { heading: string; description: string; img: string }) {
       <p className="text-balance text-sm text-neutral-300">
         {props.description}
       </p>
-      {/* <img src={props.img} className="mt-6 block size-16" /> */}
+      <img src={props.img} className="mt-6 block size-16" />
     </div>
   )
 }
