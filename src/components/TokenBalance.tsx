@@ -32,7 +32,7 @@ export default function TokenBalance({ tokenName, walletAddress }) {
   }
 
   return (
-    <div className="flex rounded-lg border-[1px] border-[#7765F3]">
+    <div className="flex w-fit rounded-lg border-[1px] border-[#7765F3]">
       <div className="flex w-fit items-center rounded-lg bg-zinc-900 p-2 px-3 text-zinc-300">
         <p className="text-sm">{tokenName}</p>
         <p className="ml-3 rounded-lg bg-zinc-800 p-0.5 px-3 text-zinc-100">

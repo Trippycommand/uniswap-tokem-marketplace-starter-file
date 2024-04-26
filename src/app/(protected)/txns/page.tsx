@@ -6,8 +6,10 @@ import { getAllHistory } from '@/utils/history'
 
 export default function TransactionsPage() {
   const history = use(getAllHistory())
+  if (typeof history === 'string')
+    throw new Error('Kindly connect wallet to view transactions.')
   return (
-    <div className="container mx-auto max-w-[1200px] p-2 text-gray-100 sm:p-4">
+    <div className="container mx-auto min-h-[90vh] max-w-[1200px] p-2 text-gray-100 sm:p-4">
       <h2 className="mb-8 mt-10 text-3xl font-semibold">Recent transactions</h2>
 
       <table className="mb-24 min-w-full text-xs">
