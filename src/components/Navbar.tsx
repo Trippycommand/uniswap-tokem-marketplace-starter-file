@@ -13,9 +13,9 @@ export default async function Navbar() {
           <div className="flex space-x-3">
             <NavbarLink href="/">Home</NavbarLink>
             <NavbarLink href="/about">About</NavbarLink>
-            <NavbarLink href="/send">Send</NavbarLink>
-            <NavbarLink href="/txns">Transactions</NavbarLink>
+            <NavbarLink href="/transfer">Transfer</NavbarLink>
             <NavbarLink href="/swap">Swap</NavbarLink>
+            <NavbarLink href="/txns">Transactions</NavbarLink>
             <NavbarLink href="/trends">Trends</NavbarLink>
           </div>
           <div className="flex flex-grow flex-row items-center justify-end gap-8">
